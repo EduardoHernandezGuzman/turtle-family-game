@@ -5,10 +5,9 @@
 </p>
 #### How to install
 To install this mini game based on "The Snake" you have to install it locally using the following command:
-```
-git clone https://github.com/Roberttovarv/turtle-family-game
-```
 
+```git clone https://github.com/Roberttovarv/turtle-family-game
+```
 ###### You can also use tools like https://replit.com/ due it has an integrated graphic enviroment or IDEs like Pycharm that also can run turtle.
 
 #### How to run
