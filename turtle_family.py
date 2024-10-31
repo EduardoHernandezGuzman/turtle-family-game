@@ -186,6 +186,7 @@ class Snake():
             self.new_highest()
             self._delay = 0.01
             self._score = 0
+            self.food.goto(self.random_int(), self.random_int())
             self.update_points()
             for child in self.pointer_body:
                 child.hideturtle()
