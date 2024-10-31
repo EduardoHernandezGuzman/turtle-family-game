@@ -3,6 +3,7 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/e36416ee-b7a3-4fe4-b778-3f7afc3cfa6b" alt="Turtle Family Game">
 </p>
+
 #### How to install
 
 To install this mini game based on "The Snake" you have to install it locally using the following command:
