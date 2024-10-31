@@ -24,4 +24,3 @@ python turtle_family.py
 I really hope you enjoy this code.
 
 ###### Feel free to connect with me via [LinkedIn](https://www.linkedin.com/in/roberttovarv)
-https://www.linkedin.com/in/roberttovarv/
