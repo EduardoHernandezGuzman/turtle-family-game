@@ -6,6 +6,8 @@ class Snake():
     
     def __init__(self):
         self.screen = self.game_screen()
+        self.game_started = False
+        self.start_message = self.start_screen()
         self.pointer = self.create_pointer()
         self.pointer_body = []
         self.food = self.create_food()
@@ -27,6 +29,25 @@ class Snake():
         self.screen.onkeypress(self.abajo, "s")
         self.screen.onkeypress(self.izquierda, "a")
         self.screen.onkeypress(self.derecha, "d")
+        self.screen.onkey(self.start_game, "space")
+        
+    def start_screen(self):
+        start = turtle.Turtle()
+        start.penup()
+        start.hideturtle()
+        start.color("black")
+        start.goto(0, 60)
+        start.write("TURTLE GAME", align="center", font=("Courier", 24, "bold"))
+        start.goto(0, -30)
+        start.write("Presiona ESPACIO para comenzar", align="center", font=("Courier", 16, "bold"))
+        return start
+    
+    def start_game(self):
+        if not self.game_started:
+            self.game_started = True
+            self.start_message.clear()
+            self.pointer.showturtle()
+            self.food.showturtle()
 
     def random_int(self):
         return random.randint(-192, 192)
@@ -179,18 +200,21 @@ class Snake():
                 self.reset()
 
     def reset(self):
-        
-            time.sleep(1)
-            self.pointer.goto(0, 0)
-            self._direction = None
-            self.new_highest()
-            self._delay = 0.01
-            self._score = 0
-            self.food.goto(self.random_int(), self.random_int())
-            self.update_points()
-            for child in self.pointer_body:
-                child.hideturtle()
-            self.pointer_body = []       
+        time.sleep(1)
+        self.pointer.goto(0, 0)
+        self._direction = None
+        self.new_highest()
+        self._delay = 0.01
+        self._score = 0
+        self.food.goto(self.random_int(), self.random_int())
+        self.update_points()
+        for child in self.pointer_body:
+            child.hideturtle()
+        self.pointer_body = []
+        self.game_started = False
+        self.start_message = self.start_screen()
+        self.pointer.hideturtle()
+        self.food.hideturtle()   
 
     def draw_bounds(self):
             bounds = turtle.Turtle()
@@ -207,16 +231,19 @@ class Snake():
             bounds.hideturtle()  
 
     def game_play(self):
+        self.pointer.hideturtle()
+        self.food.hideturtle()
 
         while True:
             self.screen.update()
-            self.borders_crash()
-            self.body_crash()
-            self.crash()
-            self.move()
+            if self.game_started:
+                self.borders_crash()
+                self.body_crash()
+                self.crash()
+                self.move()
             time.sleep(self._delay)
-        self.screen.mainloop()
-                  
-snake_game = Snake()
-snake_game.game_play()
+
+if __name__ == "__main__":
+    snake_game = Snake()
+    snake_game.game_play()
         
