@@ -8,7 +8,7 @@ class Snake():
         self.screen = self.game_screen()
         self.game_started = False
         self.start_message = self.start_screen()
-        self.snake_color = "green"  # Definir snake_color ANTES de create_pointer
+        self.snake_color = "green"
         self.pointer = self.create_pointer()
         self.pointer_body = []
         self.food = self.create_food()
