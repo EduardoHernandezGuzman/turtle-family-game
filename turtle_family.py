@@ -5,6 +5,8 @@ import random
 class Snake():
 
     def __init__(self):
+        self.is_paused = False
+        self.pause_message = None 
         self.screen = self.game_screen()
         self.game_started = False
         self.start_message = self.start_screen()
@@ -37,8 +39,33 @@ class Snake():
         self.screen.onkey(lambda: self.select_color_and_start("red"), "KP_1")
         self.screen.onkey(lambda: self.select_color_and_start("green"), "KP_2")
         self.screen.onkey(lambda: self.select_color_and_start("blue"), "KP_3")
+        self.screen.onkey(self.toggle_pause, "p")  
 
         self.screen.onclick(lambda x, y: self.screen.focus_force())
+        
+    def toggle_pause(self):
+        if self.game_started:
+            self.is_paused = not self.is_paused
+            if self.is_paused:
+                self.show_pause_message()
+            else:
+                self.hide_pause_message()
+
+    def show_pause_message(self):
+        if self.pause_message is None:
+            self.pause_message = turtle.Turtle()
+            self.pause_message.penup()
+            self.pause_message.hideturtle()
+        self.pause_message.clear()
+        self.pause_message.color("black")
+        self.pause_message.goto(0, 0)
+        self.pause_message.write("JUEGO PAUSADO\nPresiona 'P' para continuar", 
+                            align="center", 
+                            font=("Courier", 16, "bold"))
+
+    def hide_pause_message(self):
+        if self.pause_message:
+            self.pause_message.clear()    
 
     def start_screen(self):
         start = turtle.Turtle()
@@ -51,6 +78,8 @@ class Snake():
         start.write("Selecciona el color de tu tortuga:", align="center", font=("Courier", 14, "bold"))
         start.goto(0, -60)
         start.write("1: Rojo, 2: Verde, 3: Azul", align="center", font=("Courier", 12, "bold"))
+        start.goto(0, -90)  # Nueva línea
+        start.write("Presiona 'P' para pausar el juego", align="center", font=("Courier", 12, "bold"))
         return start
 
     def start_game(self):
@@ -251,7 +280,7 @@ class Snake():
 
         while True:
             self.screen.update()
-            if self.game_started:
+            if self.game_started and not self.is_paused:
                 self.borders_crash()
                 self.body_crash()
                 self.crash()
